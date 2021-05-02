@@ -7,7 +7,7 @@
         dockerfile: Dockerfile
       command: "python run.py runserver 0.0.0.0:8000"
       ports:
-        - 8000:8000
+        - 8001:8000
       volumes:
         - .:/app
       depends_on:
