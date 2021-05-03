@@ -21,8 +21,8 @@ class UsersController(object):
             raise UserNotFound(message="The user given doesn't exists, please confirm if the values are correct")
         if user_retrieved['pin'] != user_data.get("pin"):
             raise UserUnauthorized(message="Password incorrect or not valid")
-        user = {'_id': user_retrieved['_id'], 'user_id': user_retrieved['user_id']}
-        return user_retrieved
+        user = {'user_id': user_retrieved['user_id']}
+        return user
 
     @staticmethod
     def retrieve_all_users():

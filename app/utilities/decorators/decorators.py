@@ -1,7 +1,7 @@
 from functools import wraps
-
-from flask import jsonify
 from werkzeug.exceptions import InternalServerError, BadRequest, NotFound, Unauthorized
+
+from app.utilities.utils.utils import json_response
 
 
 def api_resource_endpoint():
@@ -27,16 +27,16 @@ def api_resource_endpoint():
                 return function(*args, **kwargs)
 
             except Unauthorized as e:
-                return jsonify(e)
+                return json_response(e.description, e.code)
 
             except NotFound as e:
-                return jsonify(e)
+                return json_response(e.description, e.code)
 
             except BadRequest as e:
-                return jsonify(e)
+                return json_response(e.description, e.code)
 
             except InternalServerError as e:
-                return jsonify(e)
+                return json_response(e.description, e.code)
 
             except Exception as e:
                 raise e

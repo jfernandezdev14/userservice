@@ -6,7 +6,7 @@ from flask_pymongo import PyMongo
 
 
 app = Flask(__name__)
-app.config["MONGO_URI"] = environ.get("MONGO_URI")
+app.config["MONGO_URI"] = environ.get("MONGO_URI") or 'mongodb://api_user:api_pwd@localhost:27019/userservice'
 mongo_client = PyMongo(app)
 db = mongo_client.db
 CORS(app)

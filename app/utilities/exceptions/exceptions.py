@@ -23,7 +23,7 @@ class HttpNotFound(NotFound):
         HttpNotFound constructor
         :param message: String, message of the exception. Ie, "Object not found"
         """
-        HttpNotFound.__init__(self, message)
+        NotFound.__init__(self, message)
         self.description = message
 
 
