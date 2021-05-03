@@ -5,19 +5,23 @@
       build:
         context: .
         dockerfile: Dockerfile
+      networks:
+        - userservice_network
       environment:
-        - MONGO_URI=mongodb://api_user:api_pwd@mongodb:27019/userservice
+        - MONGO_URI=mongodb://api_user:api_pwd@mongo:27017/userservice
       command: "python run.py runserver 0.0.0.0:8002"
       ports:
         - 8002:8002
       volumes:
         - .:/app
       depends_on:
-        - mongodb
+        - mongo
 
-    mongodb:
+    mongo:
       container_name: userservice_db
       image: mongo:latest
+      networks:
+        - userservice_network
       restart: always
       environment:
         - MONGO_INITDB_DATABASE=userservice
@@ -28,3 +32,8 @@
         - ./mongodb/init-db/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
       ports:
         - 27019:27017
+
+  networks:
+    userservice_network:
+      name: userservice_default
+      driver: bridge
