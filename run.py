@@ -1,9 +1,23 @@
-from flask import Flask
-from flask_pymongo import PyMongo
+#!flask/bin/python
+from flask_restful import Api
 
-app = Flask(__name__)
-app.config["MONGO_URI"] = "mongodb://localhost/userservice"
-mongo = PyMongo(app)
+from app import app
+from app.resources.users_resources import ValidateUsersResource, UsersResource
+
+userservice_api = Api(app)
+
+# List of Endpoints
+
+userservice_api.add_resource(
+    ValidateUsersResource,
+    '/userservice/api/v1.0/validate-user'
+)
+
+
+userservice_api.add_resource(
+    UsersResource,
+    '/userservice/api/v1.0/users'
+)
 
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=8000)
+    app.run(debug=True, host="0.0.0.0", port=8002)

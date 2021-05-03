@@ -5,9 +5,11 @@
       build:
         context: .
         dockerfile: Dockerfile
-      command: "python run.py runserver 0.0.0.0:8000"
+      environment:
+        - MONGO_URI=mongodb://api_user:api_pwd@localhost:27019/userservice
+      command: "python run.py runserver 0.0.0.0:8002"
       ports:
-        - 8001:8000
+        - 8002:8002
       volumes:
         - .:/app
       depends_on:
@@ -26,4 +28,4 @@
         - ./mongodb/init-db/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
 
       ports:
-        - 27019:27017
+        - 27019:27019
