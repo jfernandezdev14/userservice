@@ -31,5 +31,13 @@ This repository depends on the following one:
 
      docker-compose up -d
 
+   ## 4 - Test endpoints via postman (Optional):
+   If you want to test the endpoints of financialservice or userservice repos you can load the following postman collection links
+   
+   - FinancialService postman collection: https://www.getpostman.com/collections/fa7bb4dbe2d2c61961d7
+   - UserService postman collection: https://www.getpostman.com/collections/2f7339a01e1f4bb62cb4
+
+   In case you don't have postman here is the link to download and install its client: https://www.postman.com/downloads/ 
+
 ## Test the application
 After deploy, you can use the following url to test the app - http://localhost:8000/
