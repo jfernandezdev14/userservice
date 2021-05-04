@@ -1,12 +1,13 @@
   version: "3.8"
   services:
-    backend:
-      container_name: userservice_backend
+    us_backend:
+      container_name: userservice
       build:
         context: .
         dockerfile: Dockerfile
       networks:
         - userservice_network
+        - acmebankportal_network
       environment:
         - MONGO_URI=mongodb://api_user:api_pwd@mongo:27017/userservice
       command: "python run.py runserver 0.0.0.0:8002"
@@ -36,4 +37,7 @@
   networks:
     userservice_network:
       name: userservice_default
+      driver: bridge
+    acmebankportal_network:
+      name: acmebankportal_default
       driver: bridge
