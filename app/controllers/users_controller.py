@@ -12,7 +12,7 @@ class UsersController(object):
         """
         Validates if the user data received matches with an existing user
         :param user_data: Dict, Contains the user information. Ie, {"user_id": "user123", "pin": "pass123"}
-        :return: Dict, Returns the information of the user validated
+        :return: Bool, if the information of the user is valid True ,otherwise an exception is raised. Ie, True
         """
 
         user_manager = UsersManager()
@@ -21,8 +21,7 @@ class UsersController(object):
             raise UserNotFound(message="The user given doesn't exists, please confirm if the values are correct")
         if user_retrieved['pin'] != user_data.get("pin"):
             raise UserUnauthorized(message="Password incorrect or not valid")
-        user = {'user_id': user_retrieved['user_id']}
-        return user
+        return True
 
     @staticmethod
     def retrieve_all_users():

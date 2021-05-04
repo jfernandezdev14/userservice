@@ -33,5 +33,5 @@ class ValidateUsersResource(Resource):
         """
         data = request.get_json(force=True)
         users_controller = UsersController()
-        user = users_controller.validate_user_account(user_data=data)
-        return jsonify(user)
+        is_valid = users_controller.validate_user_account(user_data=data)
+        return jsonify({"is_valid": is_valid})
