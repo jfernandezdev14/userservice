@@ -1,0 +1,39 @@
+  version: "3.8"
+  services:
+    backend:
+      container_name: userservice_backend
+      build:
+        context: .
+        dockerfile: Dockerfile
+      networks:
+        - userservice_network
+      environment:
+        - MONGO_URI=mongodb://api_user:api_pwd@mongo:27017/userservice
+      command: "python run.py runserver 0.0.0.0:8002"
+      ports:
+        - 8002:8002
+      volumes:
+        - .:/app
+      depends_on:
+        - mongo
+
+    mongo:
+      container_name: userservice_db
+      image: mongo:latest
+      networks:
+        - userservice_network
+      restart: always
+      environment:
+        - MONGO_INITDB_DATABASE=userservice
+        - MONGO_INITDB_ROOT_USERNAME=admin
+        - MONGO_INITDB_ROOT_PASSWORD=password
+      volumes:
+        - ./mongodb/data:/data/db
+        - ./mongodb/init-db/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      ports:
+        - 27019:27017
+
+  networks:
+    userservice_network:
+      name: userservice_default
+      driver: bridge
